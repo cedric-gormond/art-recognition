@@ -21,7 +21,7 @@ from image_class import calculate_centroids_histogram
 from define_class import defineClass
 import pysift
 
-def testModel(test_images, clf,model, k=100):
+def testModel(test_images, clf,model, k=100, train_number="1"):
     print("SIFT - PROCESS")
     # Takes the descriptor list which is unordered one
     descriptor_list = [] 
@@ -29,6 +29,7 @@ def testModel(test_images, clf,model, k=100):
     # Takes the sift features that is seperated class by class for train data
     shiftData = {}
 
+    brisk = cv2.BRISK_create(30)
     for image in test_images:
         print("-> Image : " + image)
 
@@ -38,7 +39,8 @@ def testModel(test_images, clf,model, k=100):
         else:
             start_time = time.time()
             print("-> Computing SIFT")
-            kp, des = pysift.computeKeypointsAndDescriptors(test_images[image])
+            #kp, des = pysift.computeKeypointsAndDescriptors(test_images[image])
+            kp, des = brisk.detectAndCompute(test_images[image], None)
             print("\n \t EXPORT SIFT : " + image)
             exportSIFT(kp, des,'bovw/results/SIFT',image)
             print("\t -> filename  : " + os.path.splitext(image)[0] +".txt")
@@ -70,6 +72,7 @@ def testModel(test_images, clf,model, k=100):
 
     print("TESTING SVM")
     prediction = clf.predict(test_featvec)
+    labels = clf.classes_
     print("Done\n")
 
-    return prediction, test_class
+    return prediction, test_class, labels

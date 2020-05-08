@@ -1,6 +1,7 @@
 import os 
 import csv
 import sys
+import re
 
 def defineClass(images):
     class_vector = []    
@@ -21,8 +22,23 @@ def defineClassWithArtists(images, csv_filename='bovw/dataset/csv/small_data.csv
 
     return class_vector
 
+def defineClassWithOnlyFilename(images):
+    class_vector = []
+
+    for image in images:
+        if(re.search("^Pablo_Picasso_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Pablo Picasso")
+        elif(re.search("^Vincent_van_Gogh_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Vincent van Gogh")
+        elif(re.search("^Claude_Monet_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Claude Monet")
+        elif(re.search("^Frida_Kahlo_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Frida Kahlo")
+
+    return class_vector
+
 def matchArtist(id,csv_filename='bovw/dataset/csv/all_data_info.csv'):
-    #    cr=csv.reader(open("all_data_info.csv","r",encoding="utf8"))
+    # cr=csv.reader(open("all_data_info.csv","r",encoding="utf8"))
     cr=csv.reader(open(csv_filename,"r",encoding="utf8"))
     next(cr)
     Artist_and_id=[]

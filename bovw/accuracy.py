@@ -8,7 +8,7 @@ def plot_confusion_matrix(cm,
                           target_names,
                           title='Confusion matrix',
                           cmap=None,
-                          normalize=None):
+                          normalize=True):
     """
     given a sklearn confusion matrix (cm), make a nice plot
 

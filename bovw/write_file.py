@@ -17,18 +17,14 @@ def exportSIFT(keypoints, descriptors, folder, filename):
 
     keypointsFile = folder + "/keypoints/" + os.path.splitext(filename)[0]  + ".txt"
     np.savetxt(keypointsFile, keypoints, fmt="%s")
-    #with open(keypointsFile, 'w') as file:
-    #    # Descriptors 
-    #    for key in keypoints:
-    #        file.write('%s\n' % key)
 
 
-def exportKMEANS(clusters, model, k, folder):
-    kmeansFile = folder + "/clusters/KMEANS_TRAIN3_" + str(k) +".txt"
+def exportKMEANS(clusters, model, k, folder, train_number="1"):
+    kmeansFile = folder + "/clusters/KMEANS_TRAIN" + train_number +"_" + str(k) +".txt"
     np.savetxt(kmeansFile, clusters, fmt="%s")
 
     print("SAVING KMEANS MODEL")
-    joblib.dump(model, "bovw/results/KMEANS/models/model_KMEANS_TRAIN3_" + str(k) + ".pkl", compress=3)
+    joblib.dump(model, "bovw/results/KMEANS/models/model_KMEANS_TRAIN" + train_number +"_" + str(k) + ".pkl", compress=3)
     print("Done\n")
 
 

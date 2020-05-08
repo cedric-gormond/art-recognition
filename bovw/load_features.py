@@ -16,15 +16,15 @@ def importSIFT(folder, filename):
 def checkDataset(folder,filename):
     return os.path.exists(folder + "/" +os.path.splitext(filename)[0] +".txt")
 
-def checkKmeans(k, folder):
-    return ((os.path.exists(folder + "/clusters/KMEANS_TRAIN3_" + str(k) +".txt")) & (os.path.exists(folder + "/models/model_KMEANS_TRAIN3_" + str(k) +".pkl")))
+def checkKmeans(k, folder, train_number="1"):
+    return ((os.path.exists(folder + "/clusters/KMEANS_TRAIN" + train_number +"_" + str(k) +".txt")) & (os.path.exists(folder + "/models/model_KMEANS_TRAIN" + train_number +"_" + str(k) +".pkl")))
 
-def importKmeans(k,folder):
-    clusterFile = folder + "/clusters/KMEANS_TRAIN3_" + str(k) +".txt"
+def importKmeans(k,folder, train_number="1"):
+    clusterFile = folder + "/clusters/KMEANS_TRAIN"+ train_number + "_" + str(k) +".txt"
     cluster = np.genfromtxt(clusterFile)
 
     print("SAVING KMEANS MODEL")
-    model = joblib.load("bovw/results/KMEANS/models/model_KMEANS_TRAIN3_" + str(k) +".pkl")
+    model = joblib.load("bovw/results/KMEANS/models/model_KMEANS_TRAIN" + train_number +"_" + str(k) +".pkl")
     print("Done\n")
 
     return cluster, model

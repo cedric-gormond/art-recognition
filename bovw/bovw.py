@@ -6,9 +6,9 @@ import time
 import math
 
 from sklearn.cluster import KMeans
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, plot_confusion_matrix
 from accuracy import *
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # Perform k-means clustering and vector quantization
 from scipy.cluster.vq import kmeans, vq
@@ -23,39 +23,43 @@ from define_class import *
 # Jupyter path
 os.chdir(r"c:\Users\cedri\Documents\workspace\art_recognition")
 
-#listArtist = listArtistCSV("bovw/dataset/csv/all_data_info.csv")
+print("DATASET CONFIGURATION")
+
+# UTILISEZ UNIQUEMENT LA TRAIN 4 => NOM IMAGE DIFFERENT
+train_number = "4"
+
+print("Train dataset n° : " + str(train_number))
+print("Done\n")
 
 print("LOADING TRAIN IMAGE ")
-train_images = load_images_from_folder("bovw/dataset/train3")  # take all images category by category 
+train_images = load_images_from_folder("bovw/dataset/train" + train_number)  # take all images category by category 
 print("Done \n")
 
 print("LOADING TEST IMAGE ")
-test_images = load_images_from_folder("bovw/dataset/query3")  # take all images category by category 
+test_images = load_images_from_folder("bovw/dataset/query" + train_number)  # take all images category by category 
 print("Done \n")
 
 print("TRAINING FROM DATASET")
-k = 150
-clf,KmeansModel = trainModel(train_images, k)
+k = 2000
+clf,KmeansModel = trainModel(train_images, k, train_number)
 print("Done \n")
 
 print("TESTING QUERY")
-prediction, test_class = testModel(test_images, clf, KmeansModel, k)
+prediction, test_class, labelsCLF = testModel(test_images, clf, KmeansModel, k, train_number)
 print ("->test_class = "  + str(test_class))
 print ("->prediction = "  + str(prediction))
 print("Done \n")
 
 print("ACCURACY - CONFUSION MATRIX")
-# Set of classes (avoid duplicates)
-labels = list(set(test_class))
-accuracy = accuracy_score(test_class,prediction, labels)
+accuracy = accuracy_score(test_class,prediction)
 print("->accuracy = " + str(accuracy))
 
-cm = confusion_matrix(test_class, prediction)
+cm = confusion_matrix(test_class, prediction,labels=labelsCLF)
 print(cm)
-#showconfusionmatrix(cm)
-plot_confusion_matrix(cm,labels,'Confusion Matrix - Art Recognition (' + str(k)+' visuals words)')
+plot_confusion_matrix(cm,labelsCLF,'Confusion Matrix - Art Recognition (' + str(k)+' visuals words)')
 
-file_object  = open("bovw/results/ACCURACY/results.txt", "a")
-file_object.write("%f\n" % accuracy)
+file_object = open("bovw/results/ACCURACY/results.csv", "a")
+result = "SVM" + "," + str(train_number) + "," + str(k) + "," + str(len(labelsCLF))+ "," +str(accuracy) + "\n" 
+file_object.write(result)
 file_object.close()
 print("Done\n")
