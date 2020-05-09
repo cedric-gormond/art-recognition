@@ -2,6 +2,7 @@
 import numpy as np
 from scipy.spatial import distance
 from define_class import defineClass, defineClassWithArtists, defineClassWithOnlyFilename
+from utils import *
 
 # takes two arrays as parameters and find the l1 distance
 def L1_dist(vec1, vec2):
@@ -64,6 +65,10 @@ def calculate_centroids_histogram(images,descriptors, model, k=100):
 
         #histogram is the feature vector
         feature_vectors.append(hist)
+
+        #status
+        printProgressBar (len(feature_vectors), len(images), prefix = image)
+        
     
     #TRAIN 1 & 2
     #class_vectors = defineClass(images)

@@ -8,7 +8,9 @@ import math
 
 from sklearn.cluster import KMeans
 from sklearn.neighbors import KNeighborsClassifier
+from utils import *
 import matplotlib.pyplot as plt
+
 
 # Perform k-means clustering and vector quantization
 from scipy.cluster.vq import kmeans, vq
@@ -33,7 +35,7 @@ def trainModel(train_images, k=100, train_number="1"):
 
     brisk = cv2.BRISK_create(30)
     for image in train_images:
-        print("-> Image : " + image)
+        #print("-> Image : " + image)
 
         if checkDataset("bovw/results/SIFT/descriptors", image):
             _,des = importSIFT('bovw/results/SIFT',image)
@@ -53,8 +55,10 @@ def trainModel(train_images, k=100, train_number="1"):
         shiftData[image] = des
         descriptor_list.extend(des) 
 
-        print("-> DES : " + str(len(des)) + "\t (" + str(len(des)*127) +" integers)")
-        print("\n")
+        #print("-> DES : " + str(len(des)) + "\t (" + str(len(des)*127) +" integers)")
+        #print("\n")
+        printProgressBar(len(shiftData), len(train_images), image)
+        
     print("Done \n")
 
     print("KMEANS")

@@ -19,6 +19,7 @@ from load_images import load_images_from_folder
 from load_features import importSIFT, checkDataset
 from image_class import calculate_centroids_histogram
 from define_class import defineClass
+from utils import *
 import pysift
 
 def testModel(test_images, clf,model, k=100, train_number="1"):
@@ -31,7 +32,7 @@ def testModel(test_images, clf,model, k=100, train_number="1"):
 
     brisk = cv2.BRISK_create(30)
     for image in test_images:
-        print("-> Image : " + image)
+        #print("-> Image : " + image)
 
         #kp, des = pysift.computeKeypointsAndDescriptors(images[image]) 
         if checkDataset("bovw/results/SIFT/descriptors", image):
@@ -52,8 +53,9 @@ def testModel(test_images, clf,model, k=100, train_number="1"):
         shiftData[image] = des 
         descriptor_list.extend(des) 
 
-        print("-> DES : " + str(len(des)))
-        print("\n")
+        #print("-> DES : " + str(len(des)))
+        #print("\n")
+        printProgressBar(len(shiftData), len(test_images), image)
     
     print("Done \n")
 
