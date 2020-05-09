@@ -2,8 +2,6 @@
 
 Machine learning art recognition projet based on a BoVW implementation.
 
---- 
-
 # Requirements
 - python-3.8.2
 - scikit-learn
