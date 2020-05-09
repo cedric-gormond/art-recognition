@@ -7,6 +7,7 @@ import datetime
 import math
 
 from sklearn.cluster import KMeans
+from sklearn.neighbors import KNeighborsClassifier
 import matplotlib.pyplot as plt
 
 # Perform k-means clustering and vector quantization
@@ -35,7 +36,7 @@ def trainModel(train_images, k=100, train_number="1"):
         print("-> Image : " + image)
 
         if checkDataset("bovw/results/SIFT/descriptors", image):
-            kp,des = importSIFT('bovw/results/SIFT',image)
+            _,des = importSIFT('bovw/results/SIFT',image)
         else:
             start_time = time.time()
             print("-> Computing SIFT")
@@ -48,11 +49,11 @@ def trainModel(train_images, k=100, train_number="1"):
             end_time = time.time()
             elapsed_time = end_time - start_time
             print("\t Done :" + str(elapsed_time)[0:4] +"s (" + str(elapsed_time/60)[0:4] +"min) \n")
-    
-        shiftData[image] = des 
+        
+        shiftData[image] = des
         descriptor_list.extend(des) 
 
-        print("-> DES : " + str(len(des)))
+        print("-> DES : " + str(len(des)) + "\t (" + str(len(des)*127) +" integers)")
         print("\n")
     print("Done \n")
 
@@ -86,6 +87,8 @@ def trainModel(train_images, k=100, train_number="1"):
 
     print("CLASSIFICATION")
     clf = svm.SVC()
+    # KNN
+    #clf = KNeighborsClassifier(n_neighbors=len(train_class))
     clf.fit(train_featvec, train_class)
     print("Done\n")
 

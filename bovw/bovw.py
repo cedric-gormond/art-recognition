@@ -25,7 +25,7 @@ os.chdir(r"c:\Users\cedri\Documents\workspace\art_recognition")
 
 print("DATASET CONFIGURATION")
 
-# UTILISEZ UNIQUEMENT LA TRAIN 4 => NOM IMAGE DIFFERENT
+# UTILISEZ UNIQUEMENT TRAIN 4,5 => NOM IMAGE DIFFERENT
 train_number = "4"
 
 print("Train dataset n° : " + str(train_number))

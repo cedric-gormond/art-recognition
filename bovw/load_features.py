@@ -2,14 +2,16 @@ import os
 import numpy as np
 from sklearn.externals import joblib
 from os import walk
+import time
 
 def importSIFT(folder, filename):
+    
     descriptorsFile = folder + "/descriptors/" + os.path.splitext(filename)[0] + ".txt"
-    des = np.genfromtxt(descriptorsFile)
-
-    keypointsFile = folder + "/keypoints/" + os.path.splitext(filename)[0]  + ".txt"
-    key = np.genfromtxt(keypointsFile)
-    #key = []
+    des = [ list(map(int, line.rstrip('\n').split())) for line in open(descriptorsFile)]
+    
+    #keypointsFile = folder + "/keypoints/" + os.path.splitext(filename)[0]  + ".txt"
+    #key = np.genfromtxt(keypointsFile)
+    key = []
 
     return key,des
 

@@ -15,8 +15,8 @@ def exportSIFT(keypoints, descriptors, folder, filename):
     if not os.path.exists(folder + "/keypoints/"):
         os.makedirs(folder + "/keypoints/")
 
-    keypointsFile = folder + "/keypoints/" + os.path.splitext(filename)[0]  + ".txt"
-    np.savetxt(keypointsFile, keypoints, fmt="%s")
+    #keypointsFile = folder + "/keypoints/" + os.path.splitext(filename)[0]  + ".txt"
+    #np.savetxt(keypointsFile, keypoints, fmt="%s")
 
 
 def exportKMEANS(clusters, model, k, folder, train_number="1"):

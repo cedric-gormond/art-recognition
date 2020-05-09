@@ -1,21 +1,29 @@
 from define_class import listArtistCSV, defineClassWithArtists, defineClassWithOnlyFilename
 from sklearn.metrics import accuracy_score, confusion_matrix, plot_confusion_matrix
+from load_features import *
 from accuracy import *
 from load_images import *
+import time
+import json
 
 print("LOADING TRAIN IMAGE ")
-#train_images = load_images_from_folder("bovw/dataset/train4")  # take all images category by category 
+train_images = load_images_from_folder("bovw/dataset/train4")  # take all images category by category 
 print("Done \n")
 
-#print(train_images)
-#artist = defineClassWithOnlyFilename(train_images)
-#print(artist)
+for image in train_images:
+    print("-> Image : " + image)
 
-test_class = ["A", "D", "C", "B"]
-pred_class = ["A", "B", "B", "B"]
+    if checkDataset("bovw/results/SIFT/descriptors", image):
+        start_time = time.time()
 
-labels = ["A", "B", "C", "D"]
+        descriptorsFile = "bovw/results/SIFT/descriptors/" + os.path.splitext(image)[0] + ".txt"
+        #des = np.genfromtxt(descriptorsFile, dtype="i8")
+        #des = list()
+        des = [ list(map(int, line.rstrip('\n').split())) for line in open(descriptorsFile)]
 
-cm = confusion_matrix(test_class, pred_class,labels=labels)
-print(cm)
-plot_confusion_matrix(cm,labels,'Confusion Matrix - Art Recognition ( visuals words)')
+        end_time = time.time()
+        print("TIME : " + str(end_time - start_time))
+        input()
+        print(des)
+
+

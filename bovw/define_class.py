@@ -34,6 +34,18 @@ def defineClassWithOnlyFilename(images):
             class_vector.append("Claude Monet")
         elif(re.search("^Frida_Kahlo_\d*", os.path.splitext(image)[0])):
             class_vector.append("Frida Kahlo")
+        elif(re.search("^Gustav_Klimt_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Gustav Klimt van Gogh")
+        elif(re.search("^Rene_Magritte_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Rene Magritte")
+        elif(re.search("^Andy_Warhol_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Andy Warhol")
+        elif(re.search("^Henri_Matisse_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Henri Matisse")
+        elif(re.search("^Paul_Cezanne_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Paul Cezanne")
+        elif(re.search("^Gustave_Courbet_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Gustave Courbet")
 
     return class_vector
 
