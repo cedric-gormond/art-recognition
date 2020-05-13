@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 from scipy.cluster.vq import vq
 from sklearn import svm
 from sklearn import preprocessing
+from sklearn.neural_network import MLPClassifier
 
 # Custom
 from kmeans import kmeans
@@ -107,34 +108,38 @@ def trainModel(train_images, k=1000, train_number="1"):
 
     print("CLASSIFICATION")
     allClassifier = {}
-    #Encoding string data into float for LinearSVR and SVR
-    train_class_float = []
 
     # Linear Support Vector Classification
     clf_LinearSVC = svm.LinearSVC()
     clf_LinearSVC.fit(train_featvec, train_class)
     allClassifier["LinearSVC"] = clf_LinearSVC
 
-    # Linear Support Vector Reggression
-    #clf_LinearSVR = svm.LinearSVR()
-    #clf_LinearSVR.fit(train_featvec, train_class_float)
-    #allClassfier.append(clf_LinearSVR)
+    # Nu - Support Vector Classification
+    clf_NuSVC_05 = svm.NuSVC()
+    clf_NuSVC_05.fit(train_featvec, train_class)
+    allClassifier["NuSVC05"] = clf_NuSVC_05
+
+    # Nu02 - Support Vector Classification
+    clf_NuSVC_02 = svm.NuSVC(nu=0.2)
+    clf_NuSVC_02.fit(train_featvec, train_class)
+    allClassifier["NuSVC02"] = clf_NuSVC_02
+    
+    # Nu005 - Support Vector Classification
+    clf_NuSVC_005 = svm.NuSVC(nu=0.05)
+    clf_NuSVC_005.fit(train_featvec, train_class)
+    allClassifier["NuSVC005"] = clf_NuSVC_005
 
     # Support Vector Classification
     clf_SVC = svm.SVC()
     clf_SVC.fit(train_featvec, train_class)
     allClassifier["SVC"] = clf_SVC
 
-    # Support Vector Reggression
-    #clf_SVR = svm.SVR()
-    #clf_SVR.fit(train_featvec, train_class_float)
-    #allClassfier.append(clf_SVR)
-
     # KNN
-    clf_KNN = KNeighborsClassifier(n_neighbors=len(train_class))
+    clf_KNN = KNeighborsClassifier(n_neighbors=1)
     clf_KNN.fit(train_featvec, train_class)
-    allClassifier["KNN"] = clf_KNN
+    allClassifier["KNN"] = clf_KNN    
 
+    print(allClassifier.keys())
     print("Done\n")
 
     return allClassifier, KmeansModel

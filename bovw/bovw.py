@@ -25,9 +25,9 @@ os.chdir(r"c:\Users\cedri\Documents\workspace\art_recognition")
 print("\n ART RECOGNITION - Les BeauxArt'TSE \n")
 
 print("DATASET CONFIGURATION")
-train_number      = "1"
+train_number      = "5"
 k                 = 5000
-testTrainDataset  = False
+testTrainDataset  = True
 
 print("Train dataset n° : " + str(train_number))
 print("Clusters         : " + str(k))
@@ -51,20 +51,23 @@ print("Done \n")
 
 print("TESTING QUERY")
 predictions, test_class, labelsCLF = testModel(test_images, allClassifier, KmeansModel, k, train_number)
-print ("->test_class = "  + str(test_class))
-print ("->prediction = "  + str(predictions))
+#print ("->test_class = "  + str(test_class))
+#print ("->prediction = "  + str(predictions))
 print("Done \n")
 
 print("ACCURACY - CONFUSION MATRIX")
 accuracies = {}
 for clf in predictions:
+    # Accuracy
     accuracy = accuracy_score(test_class,predictions[clf])
-    print(classification_report(test_class,predictions[clf]))
     accuracies[clf] = accuracy
+    print("CLF : " + clf)
     print("->accuracy = " + str(accuracy))
+    print(classification_report(test_class,predictions[clf]))
 
+    # Confusion matrix
     cm = confusion_matrix(test_class, predictions[clf],labels=labelsCLF)
-    print(cm)
+    #print(cm)
     plot_confusion_matrix(cm,labelsCLF,'Art Recognition (' + clf + ', ' + str(k)+' visuals words)')
     print("Done\n")
 

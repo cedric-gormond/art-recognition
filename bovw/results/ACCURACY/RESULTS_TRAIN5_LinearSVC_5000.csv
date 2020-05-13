@@ -1,0 +1,2 @@
+TRAIN5,LinearSVC,False,9,5000,0.5
+TRAIN5,LinearSVC,True,9,5000,1.0
