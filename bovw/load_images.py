@@ -21,6 +21,6 @@ def load_images_from_folder(folder):
         if img is not None:
             images[filename] = img
         
-        printProgressBar (len(images), len([name for name in os.listdir(folder)]), prefix = filename)
-
+        printProgressBar(len(images), len([name for name in os.listdir(folder)]), prefix = filename, suffix = str("(" + str(len(images)) + "/"+ str(len([name for name in os.listdir(folder)]))+")"))
+ 
     return images

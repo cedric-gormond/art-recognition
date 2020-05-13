@@ -5,13 +5,12 @@ import cv2
 import time
 import math
 
-from sklearn.cluster import KMeans
-from sklearn.metrics import accuracy_score, confusion_matrix, plot_confusion_matrix
+
+from sklearn.metrics import accuracy_score, confusion_matrix, plot_confusion_matrix, classification_report
 from accuracy import *
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 # Perform k-means clustering and vector quantization
-from scipy.cluster.vq import kmeans, vq
 from sklearn import svm
 
 # Custom
@@ -23,43 +22,60 @@ from define_class import *
 # Jupyter path
 os.chdir(r"c:\Users\cedri\Documents\workspace\art_recognition")
 
-print("DATASET CONFIGURATION")
+print("\n ART RECOGNITION - Les BeauxArt'TSE \n")
 
-# UTILISEZ UNIQUEMENT TRAIN 4,5 => NOM IMAGE DIFFERENT
-train_number = "4"
+print("DATASET CONFIGURATION")
+train_number      = "1"
+k                 = 5000
+testTrainDataset  = False
 
 print("Train dataset n° : " + str(train_number))
+print("Clusters         : " + str(k))
 print("Done\n")
 
-print("LOADING TRAIN IMAGE ")
-train_images = load_images_from_folder("bovw/dataset/train" + train_number)  # take all images category by category 
+print("LOADING TRAIN" + train_number +" IMAGE ")
+train_images = load_images_from_folder("bovw/dataset/train" + train_number)  # take all images category by category
 print("Done \n")
 
-print("LOADING TEST IMAGE ")
-test_images = load_images_from_folder("bovw/dataset/query" + train_number)  # take all images category by category 
+print("LOADING TEST" + train_number + " IMAGE ")
+test_images = {}
+if(testTrainDataset):
+    test_images = train_images
+else:
+    test_images = load_images_from_folder("bovw/dataset/query" + train_number)  # take all images category by category 
 print("Done \n")
 
 print("TRAINING FROM DATASET")
-k = 2000
-clf,KmeansModel = trainModel(train_images, k, train_number)
+allClassifier,KmeansModel = trainModel(train_images, k, train_number)
 print("Done \n")
 
 print("TESTING QUERY")
-prediction, test_class, labelsCLF = testModel(test_images, clf, KmeansModel, k, train_number)
+predictions, test_class, labelsCLF = testModel(test_images, allClassifier, KmeansModel, k, train_number)
 print ("->test_class = "  + str(test_class))
-print ("->prediction = "  + str(prediction))
+print ("->prediction = "  + str(predictions))
 print("Done \n")
 
 print("ACCURACY - CONFUSION MATRIX")
-accuracy = accuracy_score(test_class,prediction)
-print("->accuracy = " + str(accuracy))
+accuracies = {}
+for clf in predictions:
+    accuracy = accuracy_score(test_class,predictions[clf])
+    print(classification_report(test_class,predictions[clf]))
+    accuracies[clf] = accuracy
+    print("->accuracy = " + str(accuracy))
 
-cm = confusion_matrix(test_class, prediction,labels=labelsCLF)
-print(cm)
-plot_confusion_matrix(cm,labelsCLF,'Confusion Matrix - Art Recognition (' + str(k)+' visuals words)')
+    cm = confusion_matrix(test_class, predictions[clf],labels=labelsCLF)
+    print(cm)
+    plot_confusion_matrix(cm,labelsCLF,'Art Recognition (' + clf + ', ' + str(k)+' visuals words)')
+    print("Done\n")
 
-file_object = open("bovw/results/ACCURACY/results.csv", "a")
-result = "SVM" + "," + str(train_number) + "," + str(k) + "," + str(len(labelsCLF))+ "," +str(accuracy) + "\n" 
-file_object.write(result)
-file_object.close()
+print("SAVING RESULTS")
+for clf in accuracies:
+    # File
+    result_path = str("RESULTS_TRAIN" + train_number) + "_" + clf + "_" + str(k) + ".csv"
+    file_object = open("bovw/results/ACCURACY/" + result_path, "a")
+
+    # Wrinting-in
+    result = str("TRAIN" + train_number) + "," + clf + "," + str(testTrainDataset) + "," + str(len(labelsCLF)) + "," + str(k)+ "," +str(accuracies[clf]) + "\n" 
+    file_object.write(result)
+    file_object.close()
 print("Done\n")

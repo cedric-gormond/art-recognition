@@ -35,7 +35,7 @@ def defineClassWithOnlyFilename(images):
         elif(re.search("^Frida_Kahlo_\d*", os.path.splitext(image)[0])):
             class_vector.append("Frida Kahlo")
         elif(re.search("^Gustav_Klimt_\d*", os.path.splitext(image)[0])):
-            class_vector.append("Gustav Klimt van Gogh")
+            class_vector.append("Gustav Klimt")
         elif(re.search("^Rene_Magritte_\d*", os.path.splitext(image)[0])):
             class_vector.append("Rene Magritte")
         elif(re.search("^Andy_Warhol_\d*", os.path.splitext(image)[0])):
@@ -46,6 +46,16 @@ def defineClassWithOnlyFilename(images):
             class_vector.append("Paul Cezanne")
         elif(re.search("^Gustave_Courbet_\d*", os.path.splitext(image)[0])):
             class_vector.append("Gustave Courbet")
+        elif(re.search("^Edouard_Manet_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Edouard Manet")
+        elif(re.search("^Joan_Miro_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Joan Miro")
+        elif(re.search("^Salvador_Dali_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Salvador Dali")
+        elif(re.search("^Piet_Mondrian_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Piet Mondrian")
+        elif(re.search("^Pierre-Auguste_Renoir_\d*", os.path.splitext(image)[0])):
+            class_vector.append("Pierre-Auguste Renoir")
 
     return class_vector
 

@@ -10,20 +10,20 @@ print("LOADING TRAIN IMAGE ")
 train_images = load_images_from_folder("bovw/dataset/train4")  # take all images category by category 
 print("Done \n")
 
+i = 0
 for image in train_images:
-    print("-> Image : " + image)
-
+    
+    status = ""
     if checkDataset("bovw/results/SIFT/descriptors", image):
-        start_time = time.time()
+        start_timeSIFT = time.time()
+        #print("\r \n -> Computing SIFT \r")
+        #print("\r \n \t EXPORT SIFT : " + image + "\r")
 
-        descriptorsFile = "bovw/results/SIFT/descriptors/" + os.path.splitext(image)[0] + ".txt"
-        #des = np.genfromtxt(descriptorsFile, dtype="i8")
-        #des = list()
-        des = [ list(map(int, line.rstrip('\n').split())) for line in open(descriptorsFile)]
+        end_timeSIFT = time.time()
+        elapsed_timeSIFT = end_timeSIFT - start_timeSIFT
+        #print("\r \t Done :" + str(elapsed_timeSIFT)[0:4] +"s (" + str(elapsed_timeSIFT/60)[0:4] +"min) \n \r")
+        status = "EXPORT SIFT :" + str(elapsed_timeSIFT)[0:4] +"s (" + str(elapsed_timeSIFT/60)[0:4] +"min)"
 
-        end_time = time.time()
-        print("TIME : " + str(end_time - start_time))
-        input()
-        print(des)
-
-
+    i=i+1
+    printProgressBar(i, len(train_images), image, status)
+    
