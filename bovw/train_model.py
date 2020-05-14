@@ -16,7 +16,6 @@ import matplotlib.pyplot as plt
 from scipy.cluster.vq import vq
 from sklearn import svm
 from sklearn import preprocessing
-from sklearn.neural_network import MLPClassifier
 
 # Custom
 from kmeans import kmeans
@@ -69,6 +68,7 @@ def trainModel(train_images, k=1000, train_number="1"):
         
     end_time = time.time()
     elapsed_time = end_time - start_time
+    print("-> Total  : " + str(len(descriptor_list)) + " descriptors")
     print("Done :" + str(elapsed_time)[0:4] +"s (" + str(elapsed_time/60)[0:4] +"min) \n")
 
     # Deleting all images in train_image dict : release memory
@@ -139,7 +139,7 @@ def trainModel(train_images, k=1000, train_number="1"):
     clf_KNN.fit(train_featvec, train_class)
     allClassifier["KNN"] = clf_KNN    
 
-    print(allClassifier.keys())
+    print(list(allClassifier.keys()))
     print("Done\n")
 
     return allClassifier, KmeansModel

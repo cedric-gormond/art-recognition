@@ -40,7 +40,6 @@ def testModel(test_images, allClassifier,model, k=100, train_number="1"):
     # Console message
     status = ""
     for image in test_images:
-        #print("-> Image : " + image)
 
         #kp, des = pysift.computeKeypointsAndDescriptors(images[image]) 
         if checkDataset("bovw/results/SIFT/descriptors", image):
@@ -52,27 +51,20 @@ def testModel(test_images, allClassifier,model, k=100, train_number="1"):
             status = "LOADING SIFT :" + str(elapsed_timeSIFT)[0:4] +"s (" + str(elapsed_timeSIFT/60)[0:4] +"min)"
         else:
             start_timeSIFT = time.time()
-            #print("-> Computing SIFT")
-            #kp, des = pysift.computeKeypointsAndDescriptors(train_images[image])
             kp, des = brisk.detectAndCompute(test_images[image], None)
-            #print("\n \t EXPORT SIFT : " + image)
             exportSIFT(kp, des,'bovw/results/SIFT',image)
-            #print("\t -> filename  : " + os.path.splitext(image)[0] +".txt")
 
             end_timeSIFT = time.time()
             elapsed_timeSIFT = end_timeSIFT - start_timeSIFT
             status = "EXPORT SIFT :" + str(elapsed_timeSIFT)[0:4] +"s (" + str(elapsed_timeSIFT/60)[0:4] +"min)"
-            #print("\t Done :" + str(elapsed_timeSIFT)[0:4] +"s (" + str(elapsed_timeSIFT/60)[0:4] +"min) \n")
 
         shiftData[image] = des 
         descriptor_list.extend(des) 
-
-        #print("-> DES : " + str(len(des)))
-        #print("\n")
         printProgressBar(len(shiftData), len(test_images), image)
     
     end_time = time.time()
     elapsed_time = end_time - start_time
+    print("-> Total  : " + str(len(descriptor_list)) + " descriptors")
     print("Done :" + str(elapsed_time)[0:4] +"s (" + str(elapsed_time/60)[0:4] +"min) \n")
 
     # Deleting all images in test_images dict : release memory
@@ -95,11 +87,11 @@ def testModel(test_images, allClassifier,model, k=100, train_number="1"):
     predictions = {}
     labels = []
 
-    for clf in allClassifier:
-        print(clf)
+    for i,clf in enumerate(allClassifier):
+        #print(clf)
         predictions[clf] = allClassifier[clf].predict(test_featvec)
         labels = allClassifier[clf].classes_
-        
-        print("Done\n")
-
+        printProgressBar(i+1, len(allClassifier), clf)
+    
+    print("Done\n")
     return predictions, test_class, labels

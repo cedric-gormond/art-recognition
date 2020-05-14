@@ -75,7 +75,7 @@ def calculate_centroids_histogram(images,descriptors, model, k=100):
 
         end_timeHIST = time.time()
         elapsed_timeHIST = end_timeHIST - start_timeHIST
-        status = "COMPUTING HIST :" + str(elapsed_timeHIST)[0:4]
+        status = "COMPUTING HIST :" + str(elapsed_timeHIST)[0:4] +"s"
 
         #status
         printProgressBar (len(feature_vectors), len(images), prefix = image, suffix = status)

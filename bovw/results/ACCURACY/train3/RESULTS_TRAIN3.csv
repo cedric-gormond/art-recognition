@@ -1,0 +1,8 @@
+id_train, testDataset,k,LinearSVC, NuSVC05, NuSVC02, NuSVC005, SVC, KNN 
+TRAIN3, False, 400, 1.0, 0.88, 1.0, 1.0, 0.36, 1.0
+TRAIN3, False, 800, 1.0, 0.92, 1.0, 1.0, 0.36, 1.0
+TRAIN3, False, 1000, 1.0, 0.88, 1.0, 1.0, 0.36, 1.0
+TRAIN3, False, 2000, 1.0, 0.88, 1.0, 1.0, 0.36, 1.0
+TRAIN3, False, 3000, 1.0, 0.92, 1.0, 1.0, 0.36, 1.0
+TRAIN3, False, 4000, 1.0, 0.88, 1.0, 1.0, 0.36, 1.0
+TRAIN3, False, 5000, 1.0, 0.84, 1.0, 1.0, 0.36, 1.0
