@@ -1,4 +1,4 @@
-> **NOTE TO FRENCH READERS : **
+> NOTE TO FRENCH READERS :
 > Vous trouverez un rapport et synthèse d'évaluation du système à l'adresse suivante : [ici](https://drive.google.com/file/d/1RartA6e97V1tvLfSbB2ithGoaHLQVZl9/view?usp=sharing)
 
 # art-recognition
