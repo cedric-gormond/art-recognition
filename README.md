@@ -3,7 +3,9 @@
 
 # art-recognition
 
-Machine learning art recognition projet based on a BoVW implementation.
+Machine learning art recognition projet based on a BoVW implementation. 
+
+Full implementation made by Cédric Gormond.
 
 # Requirements
 - python-3.8.2
