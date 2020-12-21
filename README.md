@@ -3,7 +3,7 @@
 
 # art-recognition
 
-Machine learning art recognition projet based on a BoVW implementation. 
+Machine Learning Art recognition projet based on a BoVW implementation. 
 
 Full implementation made by Cédric Gormond.
 
@@ -13,13 +13,15 @@ Full implementation made by Cédric Gormond.
 - numpy
 - OpenCV
 
+# BoVW
+1. **Preprocessing**
+	- Extraction of image descriptors by using BRISK algorithm (based on SIFT)
+	- Building codebooks from clusters of image descriptors (Batch Kmeans with a faster convergence). Feature are encoded thanks to vector quantization.
+2. **Training**
+	- Applying SVC (soft-margin) or KNN on codebooks 
+
+3. **Evaluation**
+	- Evaluating accuracy (with confusion matrix) on train and test dataset   
+
 # Dataset
 - Kaggle : https://www.kaggle.com/ikarus777/best-artworks-of-all-time
-
-# Description
-- Feature extraction: SIFT, BRISK
-- Feature Encoding: Vector Quantization, Histograms
-- Classification: SVM, KNN
-
-# Contact
-E-mail : cedric.gormond@gmail.com
