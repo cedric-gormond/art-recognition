@@ -16,12 +16,12 @@ Full implementation made by Cédric Gormond.
 # BoVW
 1. **Preprocessing**
 	- Extraction of image descriptors by using BRISK algorithm (based on SIFT)
-	- Building codebooks from clusters of image descriptors (Batch Kmeans with a faster convergence). Feature are encoded thanks to vector quantization.
+	- Building codebooks from clusters of image descriptors (Batch Kmeans with a faster convergence). Features are encoded thanks to vector quantization.
 2. **Training**
 	- Applying SVC (soft-margin) or KNN on codebooks 
 
 3. **Evaluation**
-	- Evaluating accuracy (with confusion matrix) on train and test dataset   
+	- Evaluating of the accuracy (with confusion matrix) on train and test dataset   
 
 # Dataset
 - Kaggle : https://www.kaggle.com/ikarus777/best-artworks-of-all-time
